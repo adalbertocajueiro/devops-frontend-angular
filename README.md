@@ -1,27 +1,20 @@
-# AngularHello
+# Obtendo dados do DB DevOps back-end
+Projeto angular simples contendo classes capazes de capturar os dados do back-end do projeto DB DevOps.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
+O Back-end constroi uma arvore sintática de um arquivo XML e retorna o objeto JSON que representa o esquema. Este objeto JSON é usado para construir um outro objeto que representa o esquema de volta em TypeScript, sendo a árvore sintática estrutural do BD.
 
-## Development server
+### Passos
+* Fazer o download do projeto back-end, um projeto do Visual Studio 2019 e executar o projeto. Isso vai lançar um serviço que possui a rota /schema para retornar um objeto DBSchemaNode, capturado do XML do banco. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Verificar se o back-end responde e retorna o objeto desejado (```http://localhost:PORTA/schema```)
 
-## Code scaffolding
+* Abrir o projeto Angular no VSCode e digitar ```ng serve``` par ainiciar o projeto. Existem diversos componentes na UI construída. Você precisa apenas focar nos botões de obter o objeto do back-end e o botão de construir a árvore sintática a partir dele.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Arquivos importantes
+* `scr/app/dbmodel.model.ts` - arquivo contendo todos os tipos de nós presentes em um arquivo XML de um esquema. Estes tipos nada mais são do que os mesmos tipos presentes no projeto do back-end (C#).
 
-## Build
+* `src/app/schema.service.ts` - define uma classe de serviço `SchemaService` com dois métodos: `getSchema` (contactar o back-end e obter o JSON) e `buildSchema` (obter o objeto JSON e montar um objeto do tipo DBSchemaNode). O método `buildSchema` faz uso de métodos auxiliares para criar cada tipo de nó. Observe que o método `getSchema` faz uma chamada HTTP GET para o end-point ```http://localhost:PORTA/schema```. Você precisa ajustar esse end-point quando colocar o back-end no ar.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+* `src/app/schema/schema.component.ts` - define o componente `SchemaComponent`, que se consecta com o serviço `SchemaService` para a obtencao do JSON do servidor e sua disponibilizacao para a UI do front-end.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+* `src/app/schema/schema.component.html` - componente de UI para oferecer dois botões: `Obtain JSON object from back-end` e `Build DBSchemaNode object`. Exiba as ferramentas do desenvolvedor para conseguir visualizar os objetos capturados e construídos. O primeiro botão quando clicado leva um tempo (1 ou 2s) para obter os dados do back-end. Após isso, quando clicar no segundo botão, é possível ver o objeto DBSchemaNode construído (no console). Este objeto será o objeto principal a ser usado para pegar todas as informações a serem mostradas nos componentes de UI. A visualização da estrutura do objeto (no console e a definição dos tipos em `scr/app/dbmodel.model.ts`) é bem intuitiva. 
