@@ -4,4 +4,21 @@
     </div>
     <div><br></div>
     <div><button type='button' class='btn btn-primary' (click)='buildSchema()'>Build DBSchemaNode object</button> <span>See it in the console</span></div>
+    <div>
+        <span>Sumario do modelo</span>
+        <ul *ngIf='dbSchema'>
+            <li>Atributos:</li>
+            <ul>
+                <li *ngFor='let info of dbSchema.attributes'>{{info.attributeName}}:{{info.attributeValue}}</li>
+            </ul>
+            <li>Tables: {{dbSchema.tables.length}}</li>
+            <li>Packages: {{dbSchema.packages.length}}</li>
+            <li>Procedures: {{dbSchema.procedures.length}}</li>
+            <li>Views: {{dbSchema.views.length}}</li>
+            <li>Functions: {{dbSchema.functions.length}}</li>
+            <li>Sequences: {{dbSchema.sequences.length}}</li>
+            <li>Indexes: {{dbSchema.indexes.length}}</li>
+            <li>Triggers: {{dbSchema.triggers.length}}</li>
+        </ul>
+    </div>
 </div>

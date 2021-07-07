@@ -9,14 +9,15 @@ import { SchemaService } from '../schema.service';
   providers: [SchemaService]
 })
 export class SchemaComponent implements OnInit {
-
+  
   constructor(private schService: SchemaService) { }
 
   schema:any = null;
   dbSchema:DBSchemaNode|undefined = undefined;
+
   getSchema(){
     this.schema = this.schService.getSchema();
-    console.log('Revceived schema', this.schema);
+    console.log('Received schema', this.schema);
   }
   buildSchema(){
     this.dbSchema = this.schService.buildSchema();

@@ -1,15 +1,15 @@
 export interface DBModelNode {
-    attributes:Set<DBModelNode>;
+    attributes:Set<DBAttributeNode>;
     parent: DBModelNode|null;
     modified: boolean;
 }
 export class AbstractDBModelNode implements DBModelNode {
-    attributes: Set<DBModelNode>;
+    attributes: Set<DBAttributeNode>;
     parent: DBModelNode|null;
     modified: boolean;
 
     constructor(){
-        this.attributes = new Set<DBModelNode>()
+        this.attributes = new Set<DBAttributeNode>()
         this.parent = null 
         this.modified = false
     }
@@ -44,8 +44,8 @@ export class DBSchemaNode extends AbstractDBModelNode {
         this.sequences = new Array<DBSequenceNode>()
     }
 }
-    export class DBTableNode extends AbstractDBModelNode {
-        columns:Array<DBColumnNode>
+export class DBTableNode extends AbstractDBModelNode {
+    columns:Array<DBColumnNode>
     constraints:Array<DBConstraintNode>
     indexes:Array<DBIndexNode>
     constructor(){

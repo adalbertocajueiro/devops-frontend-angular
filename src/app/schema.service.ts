@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DBArgumentNode, DBAttributeNode, DBColumnNode, DBConstraintNode, DBFunctionNode, DBIndexNode, DBMethodNode, DBPackageNode, DBProcedureNode, DBSchemaNode, DBSequenceNode, DBTableNode, DBTriggerNode, DBViewNode } from './dbmodel.model';
+import { collectExternalReferences } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,9 @@ export class SchemaService {
       this.dbSchema = this.buildSchemaNode(this.schema)
     }
     return this.dbSchema
+  }
+  getSize(coll:Array<any>){
+    return collectExternalReferences.length
   }
   buildSchemaNode(sch:any){
     this.dbSchema = new DBSchemaNode()
